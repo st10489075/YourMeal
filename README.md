@@ -9,7 +9,7 @@ Part 2:
 I had a one screen app that only allowed the user to add menu items on the app and it was able to display the menu items under starters, mains and desserts.
 
 Part 3:
-For my first page, I removed the imput text fields 
+For my first page, I removed the imput text fields and replaced them with buttons for menu and to view the menu. I added 
 
 
 Programming Languages:
