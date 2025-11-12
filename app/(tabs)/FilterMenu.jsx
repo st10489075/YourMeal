@@ -9,43 +9,6 @@ import {
   TextInput,
 } from 'react-native';
 
-const COURSES = ["Starter", "Starter", "Starter", "Main", "Main", "Main", "Dessert", "Dessert", "Dessert"];
-
-const mealName = [
-  "Chicken Wings",
-  "Prawn Cocktail",
-  "Greek Salad",
-  "Beef Steak",
-  "Grilled Chicken",
-  "Spaghetti Bolognese",
-  "Cheesecake",
-  "Ice Cream",
-  "Fruit Salad"
-];
-
-const description = [
-  "Caramel wings with a spicy glaze",
-  "Fresh prawns in a tangy cocktail sauce",
-  "Feta, olives, cucumber, tomato, onion",
-  "Juicy grilled beef steak cooked to your liking",
-  "Herb-marinated grilled chicken breast",
-  "Classic spaghetti with rich meat sauce",
-  "Creamy cheesecake with a graham cracker crust",
-  "Assorted ice cream scoops with toppings",
-  "Fresh seasonal fruits"
-];
-
-const price = [
-  "R50",
-  "R70",
-  "R40",
-  "R150",
-  "R120",
-  "R100",
-  "R60",
-  "R40",
-  "R30"
-];
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -141,8 +104,6 @@ export default function FilterMenuScreen() {
           </TouchableOpacity>
         ))}
       </View>
-
-      
 
       {/* Search Inputs */}
       <View style={styles.searchSection}>

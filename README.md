@@ -1,50 +1,18 @@
-# Welcome to your Expo app 👋
+YOURMEAL APP
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+I created an app for the chef and the guest so enable them to add new dishes according to their preferences and they are able to remove dishes that they no longer want. The also enables the chef to add new menu items on the app for the guest to choose from as well as their prices.
 
-## Get started
+Part 1:
+I designed the wireframes for the app as part of the planning the user design.
 
-1. Install dependencies
+Part 2:
+I had a one screen app that only allowed the user to add menu items on the app and it was able to display the menu items under starters, mains and desserts.
 
-   ```bash
-   npm install
-   ```
+Part 3:
+For my first page, I removed the imput text fields 
 
-2. Start the app
 
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Programming Languages:
+React Native
+JavaScript
+Css 

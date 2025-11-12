@@ -54,7 +54,7 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Chef Christofell Menu</Text>
-      <Text style={styles.avg}>Average Price: R46</Text>
+      <Text style={styles.avg}>Average Price: R45</Text>
 
       {/* Menu and Filter Buttons */}
       <View style={styles.menuContainer}>
