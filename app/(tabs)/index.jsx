@@ -50,11 +50,7 @@ export default function HomeScreen() {
 
       {/* Filter Buttons */}
      
-      {/* Filtered Results */}
-      <View style={styles.results}>
-        {selectedCourse === "" && (
-          <Text style={styles.note}>Select a category to view dishes.</Text>
-        )}
+      <View style={styles.buttonRow}>
 
         {selectedCourse === 'Starter Menu' && (
           <View>

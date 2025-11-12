@@ -1,200 +1,133 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   SafeAreaView,
   Text,
   View,
-  TouchableOpacity,
-  FlatList,
   StyleSheet,
+  Button,
   TextInput,
+  FlatList,
 } from 'react-native';
-
-
 import { useNavigation } from '@react-navigation/native';
 
-export default function FilterMenuScreen() {
-  const [menu, setMenu] = useState([]);
-  const [filteredMenu, setFilteredMenu] = useState([]);
-  const [selectedCourse, setSelectedCourse] = useState('All');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [Price, setPrice] = useState('');
+const COURSES = [
+  "Starter", "Starter", "Starter","Starter", "Starter", "Starter",
+  "Main", "Main", "Main","Main", "Main", "Main",
+  "Dessert", "Dessert", "Dessert","Dessert", "Dessert", "Dessert",
+];
+
+const mealName = [
+  "Chicken Wings","Prawn Cocktail","Greek Salad",'Mini Quiche','Garlic Bread','Tomato Soup',
+  "Beef Steak","Grilled Chicken","Spaghetti Bolognese",'Lasagna','Grilled Salmon', 'Chicken Alfredo Pasta',
+  "Cheesecake","Ice Cream","Fruit Salad","Creme Brulee", "Apple pie","Mousse",
+];
+
+const description = [
+  "Caramel wings with a spicy glaze","Fresh prawns in a tangy cocktail sauce","Feta, olives, cucumber, tomato, onion",
+  "Mini quiches with assorted fillings","Garlic bread with herbs","Creamy tomato soup with basil",
+  "Juicy grilled beef steak cooked to your liking","Herb-marinated grilled chicken breast",
+  "Classic spaghetti with rich meat sauce",
+  "Lasagna layered with meat and cheese","Grilled salmon with lemon butter sauce",
+  "Chicken Alfredo pasta in creamy sauce",
+  "Creamy cheesecake with a graham cracker crust",
+  "Assorted ice cream scoops with toppings",
+  "Fresh seasonal fruits","Classic creme brulee with caramelized sugar",
+  "Warm apple pie with cinnamon","Mousse with whipped cream topping"
+];
+
+const price = [
+  "R50", "R70", "R40","R60", "R30", "R45",
+  "R150", "R120", "R100","R130", "R160", "R140",
+  "R60", "R40", "R30","R70", "R55", "R65"
+];
+
+export default function HomeScreen() {
   const navigation = useNavigation();
-  
+  const [selectedCourse, setSelectedCourse] = useState("");
+  const [searchText, setSearchText] = useState("");
 
-  useEffect(() => {
-    const loadMenu = async () => {
-      try {
-        const saved = await AsyncStorage.getItem('menu');
-        if (saved) {
-          const parsed = JSON.parse(saved);
-          setMenu(parsed);
-          setFilteredMenu(parsed);
-        }
-      } catch (err) {
-        console.log('Error loading menu:', err);
-      }
-    };
-    loadMenu();
-  }, []);
+  // Combine menu info into one array for easy filtering
+  const menuItems = COURSES.map((course, index) => ({
+    id: index.toString(),
+    course,
+    name: mealName[index],
+    description: description[index],
+    price: price[index],
+  }));
 
-  const applyFilters = () => {
-    let filtered = menu;
-
-    // Filter by course
-    if (selectedCourse !== 'All') {
-      filtered = filtered.filter(
-        (item) =>
-          item.course?.toLowerCase() === selectedCourse.toLowerCase()
-      );
-    }
-
-    // Filter by name
-    if (searchQuery.trim()) {
-      filtered = filtered.filter((item) =>
-        item.name.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    }
-
-    // Filter by price range
-    if (Price) {
-      filtered = filtered.filter((item) => item.price >= parseFloat(Price));
-    }
-   
-    setFilteredMenu(filtered);
-  };
-
-  useEffect(() => {
-    applyFilters();
-  }, [selectedCourse, searchQuery, Price, menu]);
-
-  const renderMeal = ({ item }) => (
-    <View style={styles.mealItem}>
-      <Text style={styles.mealName}>{item.name}</Text>
-      <Text>{item.description}</Text>
-      <Text>R{item.price} - {item.course}</Text>
-    </View>
-  );
+  // Apply filters based on course & search input
+  const filteredItems = menuItems.filter((item) => {
+    const matchesCourse = selectedCourse ? item.course === selectedCourse : true;
+    const matchesSearch = item.name.toLowerCase().includes(searchText.toLowerCase());
+    return matchesCourse && matchesSearch;
+  });
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Filter Menu</Text>
+      <Text style={styles.title}>Filter Menu Items</Text>
+      
 
-      {/* Course Buttons */}
-      <View style={styles.filterContainer}>
-        {['All', 'Starter', 'Main', 'Dessert'].map((course) => (
-          
-          <TouchableOpacity
-            key={course}
-            style={[
-              styles.filterBtn,
-              selectedCourse === course && styles.activeFilterBtn,
-            ]}
-            onPress={() => setSelectedCourse(course)}
-            
-          >
-            
-            <Text
-              style={[
-                styles.filterText,
-                selectedCourse === course && styles.activeFilterText,
-              ]}
-            >
-              {course}
-            </Text>
-          </TouchableOpacity>
-        ))}
+      {/* Search Input */}
+      <TextInput
+        style={styles.searchBar}
+        placeholder="Search for a dish..."
+        value={searchText}
+        onChangeText={setSearchText}
+      />
+
+      {/* Filter Buttons */}
+      <View style={styles.buttonRow}>
+        <Button title="All" onPress={() => setSelectedCourse("")} />
+        <Button title="Starter" onPress={() => setSelectedCourse("Starter")} />
+        <Button title="Main" onPress={() => setSelectedCourse("Main")} />
+        <Button title="Dessert" onPress={() => setSelectedCourse("Dessert")} />
       </View>
 
-      {/* Search Inputs */}
-      <View style={styles.searchSection}>
-        <TextInput
-          style={styles.input}
-          placeholder="Search by meal name..."
-          value={searchQuery}
-          onChangeText={setSearchQuery}
-        />
-        <View style={styles.priceRow}>
-          <TextInput
-            style={[styles.input, { flex: 1, marginRight: 8 }]}
-            placeholder=" Price"
-            keyboardType="numeric"
-            value={Price}
-            onChangeText={Price}
-          />
-          
-        </View>
-      </View>
-
-      {/* Results */}
-      {filteredMenu.length === 0 ? (
-        <Text style={{ textAlign: 'center', marginTop: 20 }}>
-          No dish found!
-        </Text>
-      ) : (
-        <FlatList
-          data={filteredMenu}
-          keyExtractor={(item) => item.id}
-          renderItem={renderMeal}
-        />
-      )}
-
-      {/* Back Button */}
-      <TouchableOpacity
-        style={styles.backBtn}
-        onPress={() => navigation.goBack()}
-      >
-        <Text style={styles.backBtnText}>Back to Home</Text>
-      </TouchableOpacity>
+      {/* Filtered Results */}
+      <FlatList
+        data={filteredItems}
+        keyExtractor={(item) => item.id}
+        ListEmptyComponent={
+          <Text style={styles.note}>No dishes found.</Text>
+        }
+        renderItem={({ item }) => (
+          <View style={styles.itemBox}>
+            <Text style={styles.itemName}>{item.name} - {item.price}</Text>
+            <Text style={styles.itemDesc}>{item.description}</Text>
+          </View>
+        )}
+      />
     </SafeAreaView>
-    
   );
 }
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#fff', padding: 16 },
-  title: { fontSize: 22, fontWeight: '700', textAlign: 'center', marginBottom: 16 },
-  filterContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 16,
-  },
-  filterBtn: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
+  title: { fontSize: 22, fontWeight: '700', textAlign: 'center', marginBottom: 8 },
+  avg: { textAlign: 'center', marginBottom: 16, fontSize: 16 },
+  searchBar: {
     borderWidth: 1,
-    borderColor: '#1e90ff',
-    borderRadius: 20,
-  },
-  filterText: { color: '#1e90ff', fontWeight: '600' },
-  activeFilterBtn: { backgroundColor: '#1e90ff' },
-  activeFilterText: { color: '#fff' },
-  searchSection: {
+    borderColor: '#ccc',
+    borderRadius: 8,
+    padding: 10,
     marginBottom: 20,
   },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ddd',
-    padding: 10,
-    borderRadius: 8,
-    marginBottom: 10,
-  },
-  priceRow: {
+  buttonRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
+    marginBottom: 20,
   },
-  mealItem: {
-    backgroundColor: '#f9f9f9',
-    borderRadius: 10,
-    padding: 10,
-    marginBottom: 10,
+  itemBox: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
+    paddingVertical: 10,
   },
-  mealName: { fontWeight: 'bold', fontSize: 16 },
-  backBtn: {
-    backgroundColor: '#228b22',
-    padding: 12,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginTop: 10,
+  itemName: {
+    fontSize: 16,
+    fontWeight: '700',
   },
-  backBtnText: { color: '#fff', fontWeight: '700' },
+  itemDesc: {
+    color: '#555',
+  },
+  note: { color: '#777', textAlign: 'center', marginTop: 20, fontStyle: 'italic' },
 });
