@@ -12,7 +12,7 @@ Part 2:
 I had a one screen app that only allowed the user to add menu items on the app and it was able to display the menu items under starters, mains and desserts.
 
 Part 3:
-For my first page, I removed the imput text fields and replaced them with buttons for menu and to view the menu. I added two more screens for ManageMenu and FilterMenu where the chef is able to add menu items and enables the users to serches for the menu items they want.I also edited the filter screen for a better function.
+For my first page, I removed the input text fields and replaced them with buttons for menu and to view the menu. I added two more screens for ManageMenu and FilterMenu where the chef is able to add menu items and enables the users to searches for the menu items they want.I also edited the filter screen for a better function.
 
 
 Features
