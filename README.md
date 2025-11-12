@@ -16,3 +16,4 @@ Programming Languages:
 React Native
 JavaScript
 Css 
+Typescript
